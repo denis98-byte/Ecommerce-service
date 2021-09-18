@@ -1,0 +1,102 @@
+<br>
+<h4  class="text-center">Categorias</h4>
+ <!-- Button trigger modal -->
+ <button type="button" class="btn btn-primary" id="btnAgregar"><i class="fas fa-address-card"></i> Agregar</button>
+<br/>
+<br/>
+<table class="table table-striped table-hover">
+  <thead class="table-primary">
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Tipo</th>
+      <th scope="col">Marca</th>
+      <th scope="col">Modelo</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody class="tabla-categoria">
+  </tbody>
+</table>
+
+  <!-- Modal -->
+<div class="modal fade" id="modalAgregarCategoria" tabindex="-1" aria-labelledby="modalAgregarCategoriaLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalAgregarCategoriaLabel">Agregar Categoria</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="#" method="POST" id="formAgregarCategoria">
+          <div class="form-group">
+              <label for="tipo">Tipo</label>
+              <input type="text" class="form-control" name="tipo"/>
+          </div>
+          <div class="form-group">
+              <label for="marca">Marca</label>
+              <input type="text" class="form-control" name="marca"/>
+          </div>
+          <div class="form-group">
+            <label for="modelo">Modelo</label>
+            <input type="text" class="form-control" name="modelo"/>
+          </div>
+        </form>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="btnAgregarCategoria">Agregar</button>
+       </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalModificarCategoria" tabindex="-1" aria-labelledby="modalModificarCategoriaLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalModificarCategoriaLabel">Modificar Categoria</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="#" method="POST" id="formModificacioProveedor">
+              <input id="CategoriaId" name="id" type="hidden" value="">
+              <div class="form-group">
+                <label for="tipo">Tipo</label>
+                <input type="text" class="form-control" name="tipo"/>
+              </div>
+              <div class="form-group">
+                  <label for="marca">Marca</label>
+                  <input type="text" class="form-control" name="marca"/>
+              </div>
+              <div class="form-group">
+                  <label for="modelo">Modelo</label>
+                  <input type="text" class="form-control" name="modelo"/>
+              </div>
+          </form>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" id="btnModificarCategoria">Modificar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalEliminarCategoria" tabindex="-1" aria-labelledby="modalEliminarCategoriaLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEliminarCategoriaLabel">Eliminar Categoria</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="mensaje-modal">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" id="btnEliminarCategoria">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
