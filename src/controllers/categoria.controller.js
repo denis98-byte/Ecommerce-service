@@ -189,8 +189,8 @@ export default async () => {
 
     on(Element, 'click', '#btnEliminarCategoria', async e =>{
         await deleteCategoria(idCategoria);
-        const fila = Element.querySelector(`tr[id="${idCategoria}"]`);
         
+        const fila = Element.querySelector(`tr[id="${idCategoria}"]`);
         fila.remove();
         modalDelete.hide();
     });

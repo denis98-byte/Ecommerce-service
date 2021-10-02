@@ -15,6 +15,9 @@ const router = async (route) => {
         case '#/Categorias':{
             return root.appendChild(await pages.categoria())
         }
+        case '#/Compra':{
+            return root.appendChild(await pages.compra())
+        }
         case '#/Cerra':{
             location.reload(true);
         }

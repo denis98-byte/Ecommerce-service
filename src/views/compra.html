@@ -1,0 +1,147 @@
+<br>
+<h4  class="text-center">Recepcion de compra de productos</h4>
+
+<form action="#" method="POST" id="formDeCompra">
+  <div class="form-group">
+    <div class="row">
+      <div class="col">
+        <label for="fecha">Fecha</label>
+        <input type="date" class="form-control" name="fecha">
+      </div>
+      <div class="col">
+        <label for="numeroFactura">No Factura</label>
+        <input type="number" class="form-control" name="numeroFactura">
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="row">
+      <div class="col">
+        <label for="idProveedor">Proveedor</label>
+        <select type="text" id='ListProveedores' class="form-control" name="idProveedor">
+
+        </select>
+      </div>
+      <div class="col">
+        <label for="precioSinIva">Total Factura</label>
+        <input type="number" class="form-control" id="TotalFactura" name="totalConIva" disabled/>
+      </div>
+    </div>
+  </div>
+</form>
+
+<br>
+ <!-- Button trigger modal -->
+ <button type="button" class="btn btn-primary" id="btnModalFacturaProducto"><i class="fas fa-address-card"></i> Agregar producto</button>
+
+<br/>
+<br/>
+<table class="table table-striped table-hover" id="Tabla-Productos-row">
+  <thead class="table-primary">
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Producto</th>
+      <th scope="col">Precio Iva</th>
+      <th scope="col">Precio sin Iva</th>
+      <th scope="col">Cantidad</th>
+      <th scope="col">Total Iva</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody class="tabla-facProductos">
+  </tbody>
+</table>
+<button type="button" class="btn btn-primary" id="btnGrabarFacturaProducto"><i class="fas fa-address-card"></i> Grabar Factura</button>
+
+  <!-- Modal -->
+<div class="modal fade" id="modalAddFacturaProducto" tabindex="-1" aria-labelledby="modalAddFacturaProductoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalAddFacturaProductoLabel">Agregar Producto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="#" method="POST" id="formAddFacturaProducto">
+          <div class="form-group">
+            <label for="precioUnidadConIva">Producto</label>
+            <select type="text" id='SelectProductos' class="form-control ListProductos" name="idProducto">
+              <option value="0">Seleccione proveedor</option>
+            </select>
+          </div>
+          <div class="form-group">
+              <label for="precioUnidadConIva">Precio unidad Con Iva</label>
+              <input type="number" class="form-control" name="precioUnidadConIva"/>
+          </div>
+          <div class="form-group">
+            <label for="precioUnidadSinIva">Precio unidad Sin Iva</label>
+            <input type="number" class="form-control" name="precioUnidadSinIva"/>
+          </div>
+          <div class="form-group">
+              <label for="cantidad">Cantidad</label>
+              <input type="number" class="form-control" name="cantidad"/>
+          </div>
+        </form>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="btnAgregarFacturaProducto">Agregar</button>
+       </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalEditFacturaProducto" tabindex="-1" aria-labelledby="modalEditFacturaProductoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEditFacturaProductoLabel">Agregar Producto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="#" method="POST" id="formEditFacturaProducto">
+          <div class="form-group">
+            <label for="idProducto">Producto</label>
+            <select type="text" id='IDSelectProductos' class="form-control ListProductos" name="idProducto">
+            </select>
+          </div>
+          <div class="form-group">
+              <label for="precioUnidadConIva">Precio unidad Con Iva</label>
+              <input type="number" class="form-control" name="precioUnidadConIva"/>
+          </div>
+          <div class="form-group">
+            <label for="precioUnidadSinIva">Precio unidad Sin Iva</label>
+            <input type="number" class="form-control" name="precioUnidadSinIva"/>
+          </div>
+          <div class="form-group">
+              <label for="cantidad">Cantidad</label>
+              <input type="number" class="form-control" name="cantidad"/>
+          </div>
+        </form>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="btnEditarFacturaProducto">Agregar</button>
+       </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="alertaEliminarProveedor" tabindex="-1" aria-labelledby="alertaEliminarProveedorLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="alertaEliminarProveedorLabel">Eliminar Proveedor</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="mensaje-modal">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" id="EliminarProveedor">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
