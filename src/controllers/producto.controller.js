@@ -134,7 +134,7 @@ export default async () => {
         var product = {
             nombre       : form.get('nombre'),
             descripcion  : form.get('descripcion'),
-            precioConIva : parseFloat(form.get('precioConIva')),
+            precioConIva : parseFloat((parseFloat(form.get('precioSinIva')) * 1.12).toFixed(2)),
             precioSinIva : parseFloat(form.get('precioSinIva')),
             idCategoria  : parseInt(form.get('categoria')),
             linkImagen   : form.get('linkImagen'),
@@ -198,7 +198,7 @@ export default async () => {
             id            : parseInt(form.get('id')),
             nombre        : form.get('nombre'),
             descripcion   : form.get('descripcion'),
-            precioConIva  : parseFloat(form.get('precioConIva')),
+            precioConIva  : parseFloat((parseFloat(form.get('precioSinIva')) * 1.12).toFixed(2)),
             precioSinIva  : parseFloat(form.get('precioSinIva')),
             idCategoria   : parseInt(form.get('categoria')),
             linkImagen    : form.get('linkImagen'),
@@ -256,8 +256,17 @@ export default async () => {
     });
 
 
+    on(Element, 'change', '#IdPrecioSinIva', (e) => {
+        var precioSinIva = parseFloat(Element.querySelector('#IdPrecioSinIva').value) * 1.12;
 
+        Element.querySelector('#IdPrecioConIva').value = precioSinIva.toFixed(2);
+    });
 
+    on(Element, 'change', '#IdEditPrecioSinIva', (e) => {
+        var precioSinIva = parseFloat(Element.querySelector('#IdEditPrecioSinIva').value) * 1.12;
+
+        Element.querySelector('#IdEditPrecioConIva').value    = precioSinIva.toFixed(2);
+    });
 
 
 

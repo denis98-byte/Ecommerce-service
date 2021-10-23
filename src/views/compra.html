@@ -41,10 +41,11 @@
     <tr>
       <th scope="col">Id</th>
       <th scope="col">Producto</th>
-      <th scope="col">Precio Iva</th>
-      <th scope="col">Precio sin Iva</th>
+      <th scope="col">Precio de compra</th>
+      <th scope="col">Precio de compra sin iva</th>
+      <th scope="col">Precio de venta</th>
       <th scope="col">Cantidad</th>
-      <th scope="col">Total Iva</th>
+      <th scope="col">Total</th>
       <th scope="col">Acciones</th>
     </tr>
   </thead>
@@ -64,18 +65,24 @@
       <div class="modal-body">
         <form action="#" method="POST" id="formAddFacturaProducto">
           <div class="form-group">
+            <button type="button" class="btn btn-primary" id="RedireccionaProducto" style="margin-left: 310px;"> Producto</button>
+          <br/>
             <label for="precioUnidadConIva">Producto</label>
             <select type="text" id='SelectProductos' class="form-control ListProductos" name="idProducto">
               <option value="0">Seleccione proveedor</option>
             </select>
           </div>
           <div class="form-group">
-              <label for="precioUnidadConIva">Precio unidad Con Iva</label>
-              <input type="number" class="form-control" name="precioUnidadConIva"/>
+            <label for="precioUnidadConIva">Precio de compra con iva</label>
+            <input type="number" class="form-control" id="idPrecioCompra" name="precioCompra"/>
           </div>
           <div class="form-group">
-            <label for="precioUnidadSinIva">Precio unidad Sin Iva</label>
-            <input type="number" class="form-control" name="precioUnidadSinIva"/>
+              <label for="precioUnidadConIva">Precio de venta con iva</label>
+              <input type="number" class="form-control" id="idPrecioDeVentaIva" name="precioUnidadConIva" disabled/>
+          </div>
+          <div class="form-group">
+            <label for="precioUnidadSinIva">Precio de venta sin iva</label>
+            <input type="number" class="form-control" id="idPrecioDeVentaSinIva" name="precioUnidadSinIva" disabled/>
           </div>
           <div class="form-group">
               <label for="cantidad">Cantidad</label>
@@ -96,7 +103,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalEditFacturaProductoLabel">Agregar Producto</h5>
+        <h5 class="modal-title" id="modalEditFacturaProductoLabel">Editar Producto</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -107,12 +114,16 @@
             </select>
           </div>
           <div class="form-group">
-              <label for="precioUnidadConIva">Precio unidad Con Iva</label>
-              <input type="number" class="form-control" name="precioUnidadConIva"/>
+            <label for="precioUnidadConIva">Precio de compra con iva</label>
+            <input type="number" class="form-control" id="idEditPrecioCompra" name="precioCompra"/>
           </div>
           <div class="form-group">
-            <label for="precioUnidadSinIva">Precio unidad Sin Iva</label>
-            <input type="number" class="form-control" name="precioUnidadSinIva"/>
+              <label for="precioUnidadConIva">Precio de venta con iva</label>
+              <input type="number" class="form-control" id="idEditPrecioDeVentaIva" name="precioUnidadConIva" disabled/>
+          </div>
+          <div class="form-group">
+            <label for="precioUnidadSinIva">Precio de venta sin iva</label>
+            <input type="number" class="form-control" id="idEditPrecioDeVentaSinIva" name="precioUnidadSinIva" disabled/>
           </div>
           <div class="form-group">
               <label for="cantidad">Cantidad</label>

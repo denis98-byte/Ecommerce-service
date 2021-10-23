@@ -83,14 +83,15 @@ export default async () => {
         const formulario = Element.querySelector('#formAddFacturaProducto');
         const form = new FormData(formulario);
         
+        var combo          = Element.querySelector('#SelectProductos');
+        var precioDeCompra = parseFloat(form.get('precioCompra'));
 
-        var combo =  Element.querySelector('#SelectProductos');
         var producto = {
-            nombre       : combo.options[combo.selectedIndex].text,
-            idProducto   : parseInt(form.get('idProducto')),
-            precioUnidadConIva : parseFloat(form.get('precioUnidadConIva')),
-            precioUnidadSinIva : parseFloat(form.get('precioUnidadSinIva')),
-            cantidad  : parseInt(form.get('cantidad')),
+            nombre             : combo.options[combo.selectedIndex].text,
+            idProducto         : parseInt(form.get('idProducto')),
+            precioUnidadConIva : precioDeCompra,
+            precioUnidadSinIva : (precioDeCompra / 1.12).toFixed(2),
+            cantidad           : parseInt(form.get('cantidad')),
         }
 
         Element.querySelector('.tabla-facProductos').innerHTML +=`
@@ -99,6 +100,7 @@ export default async () => {
         <td>${producto.nombre}</td>  
         <td>${producto.precioUnidadConIva}</td>    
         <td>${producto.precioUnidadSinIva}</td>
+        <td>${(precioDeCompra * 1.10).toFixed(2)}</td>
         <td>${producto.cantidad}</td>
         <td>${producto.cantidad * producto.precioUnidadConIva}</td>
         <td>
@@ -122,7 +124,8 @@ export default async () => {
         var nombre       = fila.children[1].innerHTML;
         var precioIva    = fila.children[2].innerHTML;
         var PrecioSinIva = fila.children[3].innerHTML;
-        var cantidad     = fila.children[4].innerHTML;
+        var PrecioVenta  = fila.children[4].innerHTML;
+        var cantidad     = fila.children[5].innerHTML;
 
         var valuesProductos = Element.querySelector('#IDSelectProductos');
         valuesProductos.innerHTML = "";
@@ -133,8 +136,9 @@ export default async () => {
 
         const formulario = Element.querySelector('#formEditFacturaProducto');
         formulario['idProducto'].value          = id;
-        formulario['precioUnidadConIva'].value  = precioIva;
-        formulario['precioUnidadSinIva'].value  = PrecioSinIva;
+        formulario['precioCompra'].value        = precioIva;
+        formulario['precioUnidadConIva'].value  = PrecioVenta;
+        formulario['precioUnidadSinIva'].value  = (parseFloat(PrecioVenta) / 1.12).toFixed(2);
         formulario['cantidad'].value            = cantidad;
 
         modalModify.show();
@@ -144,13 +148,15 @@ export default async () => {
         const formulario = Element.querySelector('#formEditFacturaProducto');
         const form = new FormData(formulario);
 
-        var combo =  Element.querySelector('#IDSelectProductos');
+        var combo          =  Element.querySelector('#IDSelectProductos');
+        var precioDeCompra = parseFloat(form.get('precioCompra'));
+
         var producto = {
-            nombre       : combo.options[combo.selectedIndex].text,
-            idProducto   : parseInt(form.get('idProducto')),
-            precioUnidadConIva : parseFloat(form.get('precioUnidadConIva')),
-            precioUnidadSinIva : parseFloat(form.get('precioUnidadSinIva')),
-            cantidad  : parseInt(form.get('cantidad')),
+            nombre             : combo.options[combo.selectedIndex].text,
+            idProducto         : parseInt(form.get('idProducto')),
+            precioUnidadConIva : precioDeCompra,
+            precioUnidadSinIva : (precioDeCompra / 1.12).toFixed(2),
+            cantidad           : parseInt(form.get('cantidad')),
         }
 
         const fila = Element.querySelector(`tr[id="${producto.idProducto}"]`);
@@ -162,6 +168,7 @@ export default async () => {
         <td>${producto.nombre}</td>  
         <td>${producto.precioUnidadConIva}</td>    
         <td>${producto.precioUnidadSinIva}</td>
+        <td>${(precioDeCompra * 1.10).toFixed(2)}</td>
         <td>${producto.cantidad}</td>
         <td>${producto.cantidad * producto.precioUnidadConIva}</td>
         <td>
@@ -172,7 +179,6 @@ export default async () => {
         `;
 
         modalModify.hide();
-
         recorrerTabla();
     });
 
@@ -208,7 +214,7 @@ export default async () => {
                 idProducto: parseInt(row.cells[0].innerText),
                 precioUnidadSinIva: parseFloat(row.cells[3].innerText),
                 precioUnidadConIva: parseFloat(row.cells[2].innerText),
-                cantidad: parseInt(row.cells[4].innerText),
+                cantidad: parseInt(row.cells[5].innerText),
             }
 
             Factura.compraDetalles.push(producto);
@@ -218,7 +224,7 @@ export default async () => {
         Element.querySelector('.tabla-facProductos').innerHTML = '';
 
         console.log(Factura);
-        //var compra = await createCompra(Factura);
+        var compra = await createCompra(Factura);
 
         Element.querySelector('#formDeCompra').reset();
         Element.querySelector('.tabla-facProductos').innerHTML = '';
@@ -231,14 +237,33 @@ export default async () => {
         var resume_table = Element.querySelector('#Tabla-Productos-row');
 
         for (var i = 1, row; row = resume_table.rows[i]; i++) {
-            total +=  parseInt(row.cells[5].innerText)
+            total +=  parseInt(row.cells[6].innerText)
         }
 
         idTotalFactura.value = total;
         return total;
     }
 
+    on(Element, 'change', '#idPrecioCompra', (e) => {
+        var precioDeCompra = parseFloat(Element.querySelector('#idPrecioCompra').value) * 1.10;
 
+        Element.querySelector("#idPrecioDeVentaIva").value = precioDeCompra.toFixed(2);
+        Element.querySelector('#idPrecioDeVentaSinIva').value = (precioDeCompra / 1.12).toFixed(2);
+    });
+
+    //idEditPrecioCompra
+    on(Element, 'change', '#idEditPrecioCompra', (e) => {
+        var precioDeCompra = parseFloat(Element.querySelector('#idEditPrecioCompra').value) * 1.10;
+
+        Element.querySelector("#idEditPrecioDeVentaIva").value = precioDeCompra.toFixed(2);
+        Element.querySelector('#idEditPrecioDeVentaSinIva').value = (precioDeCompra / 1.12).toFixed(2);
+    });
+
+    on(Element, 'click', '#RedireccionaProducto', e => {
+        modalAdd.hide();
+
+        window.location.href = 'http://localhost:8080/#/Productos';
+    });
 
     return Element;
 };
